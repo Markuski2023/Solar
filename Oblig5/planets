@@ -1,0 +1,115 @@
+[ {
+  "name" : "Kepler",
+  "pictureUrl" : "http://bit.ly/2Iz4jPB",
+  "centerStar" : {
+    "type" : "star",
+    "name" : "Kepler-11",
+    "radius" : 1.021,
+    "mass" : 1.042,
+    "pictureUrl" : "http://bit.ly/336nzNZ",
+    "effectiveTemp" : 5836.0
+  },
+  "planets" : [ {
+    "type" : "Planet",
+    "name" : "Kepler-11b",
+    "radius" : 0.161,
+    "mass" : 0.006,
+    "pictureUrl" : "x",
+    "semiMajorAxis" : 1.36134E7,
+    "eccentricity" : 0.045,
+    "orbitalPeriod" : 10.0,
+    "centralCelestialBody" : {
+      "type" : "star",
+      "name" : "Kepler-11",
+      "radius" : 1.021,
+      "mass" : 1.042,
+      "pictureUrl" : "http://bit.ly/336nzNZ",
+      "effectiveTemp" : 5836.0
+    }
+  }, {
+    "type" : "Planet",
+    "name" : "Kepler-11c",
+    "radius" : 3.15,
+    "mass" : 13.5,
+    "pictureUrl" : "x",
+    "semiMajorAxis" : 1.5857E7,
+    "eccentricity" : 0.026,
+    "orbitalPeriod" : 13.0,
+    "centralCelestialBody" : {
+      "type" : "star",
+      "name" : "Kepler-11",
+      "radius" : 1.021,
+      "mass" : 1.042,
+      "pictureUrl" : "http://bit.ly/336nzNZ",
+      "effectiveTemp" : 5836.0
+    }
+  }, {
+    "type" : "Planet",
+    "name" : "Kepler-11d",
+    "radius" : 3.43,
+    "mass" : 6.1,
+    "pictureUrl" : "x",
+    "semiMajorAxis" : 2.3786E7,
+    "eccentricity" : 0.004,
+    "orbitalPeriod" : 22.0,
+    "centralCelestialBody" : {
+      "type" : "star",
+      "name" : "Kepler-11",
+      "radius" : 1.021,
+      "mass" : 1.042,
+      "pictureUrl" : "http://bit.ly/336nzNZ",
+      "effectiveTemp" : 5836.0
+    }
+  }, {
+    "type" : "Planet",
+    "name" : "Kepler-11e",
+    "radius" : 4.52,
+    "mass" : 8.4,
+    "pictureUrl" : "x",
+    "semiMajorAxis" : 2.9021E7,
+    "eccentricity" : 0.012,
+    "orbitalPeriod" : 31.0,
+    "centralCelestialBody" : {
+      "type" : "star",
+      "name" : "Kepler-11",
+      "radius" : 1.021,
+      "mass" : 1.042,
+      "pictureUrl" : "http://bit.ly/336nzNZ",
+      "effectiveTemp" : 5836.0
+    }
+  }, {
+    "type" : "Planet",
+    "name" : "Kepler-11f",
+    "radius" : 2.61,
+    "mass" : 2.3,
+    "pictureUrl" : "x",
+    "semiMajorAxis" : 3.7399E7,
+    "eccentricity" : 0.013,
+    "orbitalPeriod" : 36.0,
+    "centralCelestialBody" : {
+      "type" : "star",
+      "name" : "Kepler-11",
+      "radius" : 1.021,
+      "mass" : 1.042,
+      "pictureUrl" : "http://bit.ly/336nzNZ",
+      "effectiveTemp" : 5836.0
+    }
+  }, {
+    "type" : "Planet",
+    "name" : "Kepler-11g",
+    "radius" : 3.66,
+    "mass" : 25.0,
+    "pictureUrl" : "x",
+    "semiMajorAxis" : 6.9114E7,
+    "eccentricity" : 0.015,
+    "orbitalPeriod" : 118.0,
+    "centralCelestialBody" : {
+      "type" : "star",
+      "name" : "Kepler-11",
+      "radius" : 1.021,
+      "mass" : 1.042,
+      "pictureUrl" : "http://bit.ly/336nzNZ",
+      "effectiveTemp" : 5836.0
+    }
+  } ]
+} ]
