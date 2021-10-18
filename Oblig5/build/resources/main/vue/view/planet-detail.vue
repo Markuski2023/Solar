@@ -1,39 +1,39 @@
-<template id="planet-detail">
-    <div v-if="planet" class="detail-planet-container">
-        {{console.log(this.planet)}}
-        <h1>{{planet.name}}</h1>
-        <img v-if="planet.pictureUrl" class="cover-image" v-bind:src="planet.pictureUrl">
+<template id="car-detail">
+    <div v-if="car" class="detail-car-container">
+        {{console.log(this.car)}}
+        <h1>{{car.name}}</h1>
+        <img v-if="car.pictureUrl" class="cover-image" v-bind:src="car.pictureUrl">
         <img v-else class="cover-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/480px-Icon-round-Question_mark.svg.png">
 
-        <p>The mass of {{planet.name}} is {{planet.mass}} Rjup, it has a radius of {{planet.radius}} Mjup,
-            the eccentricity or the deviation of orbit is from a circularity is {{planet.eccentricity}}.</p>
-        <p>It spins around the star {{planet.centralCelestialBody.name}} with an orbiting period of {{planet.orbitalPeriod}} days.</p>
+        <p>The mass of {{car.name}} is {{car.mass}} Rjup, it has a radius of {{car.radius}} Mjup,
+            the eccentricity or the deviation of orbit is from a circularity is {{car.eccentricity}}.</p>
+        <p>It spins around the star {{car.centralCelestialBody.name}} with an orbiting period of {{car.orbitalPeriod}} days.</p>
         <p>
-          <a class="button" :href="`/api/planet-system/${planetSystemName}/planets/${planet.name}/delete`">Delete</a>
-          <a class="button" :href="`/planet-system/${planetSystemName}/planets/${planet.name}/update`">Edit</a>
+          <a class="button" :href="`/api/car-system/${planetSystemName}/cars/${car.name}/delete`">Delete</a>
+          <a class="button" :href="`/car-system/${planetSystemName}/cars/${car.name}/update`">Edit</a>
         </p>
         <br />
       <p>
-        <a class="button" :href="`/planet-system/${planetSystemName}/`">Back</a>
+        <a class="button" :href="`/car-system/${planetSystemName}/`">Back</a>
       </p>
     </div>
 </template>
 <script>
-    Vue.component("planet-detail", {
-        template: "#planet-detail",
+    Vue.component("car-detail", {
+        template: "#car-detail",
         data: () => ({
-            planet: null,
+            car: null,
             planetSystemName: "",
         }),
         created() {
-            const planetSystemId = this.$javalin.pathParams["planet-system-id"];
+            const planetSystemId = this.$javalin.pathParams["car-system-id"];
             this.planetSystemName = planetSystemId;
-            console.log("Planet system id: " + planetSystemId);
-            const planetId = this.$javalin.pathParams["planet-id"];
-            fetch(`/api/planet-system/${planetSystemId}/planets/${planetId}`)
+            console.log("Car system id: " + planetSystemId);
+            const planetId = this.$javalin.pathParams["car-id"];
+            fetch(`/api/car-system/${planetSystemId}/cars/${planetId}`)
                 .then(res => res.json())
-                .then(res => this.planet = res)
-                .catch(() => alert("Error while fetching planet"));
+                .then(res => this.car = res)
+                .catch(() => alert("Error while fetching car"));
         }
     });
 </script>
@@ -41,10 +41,10 @@
     ul{
        color:white;
     }
-    div.detail-planet-container > p {
+    div.detail-car-container > p {
         max-width: 30em;
     }
-    div.detail-planet-container{
+    div.detail-car-container{
         padding-top: 10px;
         overflow: hidden;
         width: 500px;
@@ -58,7 +58,7 @@
         box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
     }
 
-    img.planet-cover-image {
+    img.car-cover-image {
         height: 320px;
         width: 320px;
         padding-bottom: 20px;

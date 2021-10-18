@@ -9,7 +9,7 @@
     "pictureUrl" : "http://bit.ly/336nzNZ",
     "effectiveTemp" : 5836.0
   },
-  "planets" : [ {
+  "cars" : [ {
     "type" : "Planet",
     "name" : "Kepler-11b",
     "radius" : 0.161,

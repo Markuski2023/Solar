@@ -1,29 +1,21 @@
-no/hiof/markuski/oblig5/controller/PlanetSystemController.java
- no.hiof.markuski.oblig5.controller.PlanetSystemController
+no/hiof/markuski/oblig5/model/Category.java
+ no.hiof.markuski.oblig5.model.Category
+no/hiof/markuski/oblig5/repository/UniverseJSONRepository.java
+ no.hiof.markuski.oblig5.repository.UniverseJSONRepository
+no/hiof/markuski/oblig5/controller/CategoryController.java
+ no.hiof.markuski.oblig5.controller.CategoryController
+no/hiof/markuski/oblig5/model/Item.java
+ no.hiof.markuski.oblig5.model.Item
+no/hiof/markuski/oblig5/model/Car.java
+ no.hiof.markuski.oblig5.model.Car
 no/hiof/markuski/oblig5/Application.java
  no.hiof.markuski.oblig5.Application
  no.hiof.markuski.oblig5.Application$1
  no.hiof.markuski.oblig5.Application$2
-no/hiof/markuski/oblig5/model/Planet.java
- no.hiof.markuski.oblig5.model.Planet
-no/hiof/markuski/oblig5/repository/UniverseJSONRepository.java
- no.hiof.markuski.oblig5.repository.UniverseJSONRepository
-no/hiof/markuski/oblig5/model/PlanetSystem.java
- no.hiof.markuski.oblig5.model.PlanetSystem
-no/hiof/markuski/oblig5/repository/UniverseCSVRepository.java
- no.hiof.markuski.oblig5.repository.UniverseCSVRepository
-no/hiof/markuski/oblig5/model/CelestialBody.java
- no.hiof.markuski.oblig5.model.CelestialBody
-no/hiof/markuski/oblig5/controller/PlanetController.java
- no.hiof.markuski.oblig5.controller.PlanetController
- no.hiof.markuski.oblig5.controller.PlanetController$1
-no/hiof/markuski/oblig5/model/Star.java
- no.hiof.markuski.oblig5.model.Star
-no/hiof/markuski/oblig5/Main.java
- no.hiof.markuski.oblig5.Main
 no/hiof/markuski/oblig5/repository/UniverseRepository.java
  no.hiof.markuski.oblig5.repository.UniverseRepository
-no/hiof/markuski/oblig5/model/NaturalSatellite.java
- no.hiof.markuski.oblig5.model.NaturalSatellite
+no/hiof/markuski/oblig5/controller/ItemController.java
+ no.hiof.markuski.oblig5.controller.ItemController
+ no.hiof.markuski.oblig5.controller.ItemController$1
 no/hiof/markuski/oblig5/Write.java
  no.hiof.markuski.oblig5.Write

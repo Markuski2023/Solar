@@ -1,6 +1,6 @@
-<template id="planet-system-detail">
+<template id="car-system-detail">
     <div class="content-wrapper">
-        <div v-if="planetSystem" class="detail-planet-system-container">
+        <div v-if="planetSystem" class="detail-car-system-container">
           <!--img v-if="planetSystem.pictureUrl" class="cover-image" v-bind:src="planetSystem.pictureUrl">
           <img v-else class="cover-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/480px-Icon-round-Question_mark.svg.png"-->
 
@@ -11,23 +11,23 @@
           {{console.log(this.planetSystem)}}
 
             <h1>{{planetSystem.name}}</h1>
-            <p>The {{planetSystem.name}} has {{planets.length}} planets revolving around the star {{star.name}}.</p>
-            <p><a class="button" class="add" :href="`/planet-system/${planetSystem.name}/planets/create`">Create New Planet</a></p>
+            <p>The {{planetSystem.name}} has {{cars.length}} cars revolving around the star {{star.name}}.</p>
+            <p><a class="button" class="add" :href="`/car-system/${planetSystem.name}/cars/create`">Create New Planet</a></p>
         </div>
 
         <ul id="sortList">
-            <li><a v-if="sorting" :href="`/planet-system/${planetSystem.name}?sort_by=name`">Sort alphabetically</a></li>
-            <li><a v-if="sorting" :href="`/planet-system/${planetSystem.name}?sort_by=mass`">Sort by mass</a></li>
-            <li><a v-if="sorting" :href="`/planet-system/${planetSystem.name}?sort_by=num`">Sort by number</a></li>
-            <li><a v-if="sorting" :href="`/planet-system/${planetSystem.name}?sort_by=radius`">Sort by radius</a></li>
+            <li><a v-if="sorting" :href="`/car-system/${planetSystem.name}?sort_by=name`">Sort alphabetically</a></li>
+            <li><a v-if="sorting" :href="`/car-system/${planetSystem.name}?sort_by=mass`">Sort by mass</a></li>
+            <li><a v-if="sorting" :href="`/car-system/${planetSystem.name}?sort_by=num`">Sort by number</a></li>
+            <li><a v-if="sorting" :href="`/car-system/${planetSystem.name}?sort_by=radius`">Sort by radius</a></li>
         </ul>
 
-        <ul class="planet-overview-list">
-            <li v-for="planet in planets">
-                <a v-if="planetSystem" class="link-to-planet-details" :href="`/planet-system/${planetSystem.name}/planets/${planet.name}`">
-                    <div class="single-planet-container" >
-                        <h1>{{planet.name}}</h1>
-                        <img v-if="planet.pictureUrl" class="list-image" v-bind:src="planet.pictureUrl">
+        <ul class="car-overview-list">
+            <li v-for="car in cars">
+                <a v-if="planetSystem" class="link-to-car-details" :href="`/car-system/${planetSystem.name}/cars/${car.name}`">
+                    <div class="single-car-container" >
+                        <h1>{{car.name}}</h1>
+                        <img v-if="car.pictureUrl" class="list-image" v-bind:src="car.pictureUrl">
                         <img v-else class="list-image" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Icon-round-Question_mark.svg/480px-Icon-round-Question_mark.svg.png">
                     </div>
                 </a>
@@ -36,36 +36,36 @@
     </div>
 </template>
 <script>
-    Vue.component("planet-system-detail", {
-        template: "#planet-system-detail",
+    Vue.component("car-system-detail", {
+        template: "#car-system-detail",
         data: () => ({
             planetSystem: null,
-            planets: [],
+            cars: [],
             star: null,
             sorting: "name",
         }),
         created() {
-            const planetSystemId = this.$javalin.pathParams["planet-system-id"];
+            const planetSystemId = this.$javalin.pathParams["car-system-id"];
             var sort = this.$javalin.queryParams["sort_by"];
             if (typeof sort != 'undefined')
                 this.sorting = sort;
-            fetch(`/api/planet-system/${planetSystemId}`)
+            fetch(`/api/car-system/${planetSystemId}`)
                 .then(res => res.json())
                 .then(res => {
                     this.planetSystem = res
                     this.star = this.planetSystem.centerStar
                 })
-                .catch(() => alert("Error while fetching planet system"))
-            fetch(`/api/planet-system/${planetSystemId}/planets?sort_by=${this.sorting}`)
+                .catch(() => alert("Error while fetching car system"))
+            fetch(`/api/car-system/${planetSystemId}/cars?sort_by=${this.sorting}`)
                 .then(res => res.json())
-                .then(res => this.planets = res)
-                .catch(() => alert("Error while fetching planets"));
+                .then(res => this.cars = res)
+                .catch(() => alert("Error while fetching cars"));
         }
     });
 </script>
 <style>
 
-    .planet-overview-list{
+    .car-overview-list{
         color:black;
         display: flex;
         flex-wrap: wrap;
@@ -99,7 +99,7 @@
         border: 2px solid white;
     }
 
-    div.detail-planet-system-container{
+    div.detail-car-system-container{
         padding: 10px;
         overflow: hidden;
         width: 750px;
@@ -112,7 +112,7 @@
         box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);
     }
 
-    div.single-planet-container{
+    div.single-car-container{
         overflow: hidden;
         color: white;
         background-color: rgba(0, 0, 0, 0.98);
@@ -159,7 +159,7 @@
         padding-top: 10px;
     }
 
-    .link-to-planet-details{
+    .link-to-car-details{
         width: 400px;
         height:100px;
         text-decoration: none;

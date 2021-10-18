@@ -1,8 +1,8 @@
-<template id="planet-update" @planet-submitted="createPlanet">
+<template id="car-update" @car-submitted="createPlanet">
   <div class="form-style">
     <h2>Edit {{ planetName }} in the {{ planetSystemName }}</h2>
     <form class="create" @submit="checkForm"
-          :action=`/api/planet-system/${planetSystemName}/planets/${planetName}/update` method="post">
+          :action=`/api/car-system/${planetSystemName}/cars/${planetName}/update` method="post">
       <div v-if="errors.length">
         <b>Please correct the following error(s):</b>
         <ul>
@@ -11,25 +11,25 @@
       </div>
 
       <label for="name">Name<label>
-      <input type="text" name="name" id="name" v-model="planet.name">
+      <input type="text" name="name" id="name" v-model="car.name">
 
       <label for="mass">Mass<label>
-      <input type="number" step="any" name="mass" id="mass" v-model="planet.mass" min="0">
+      <input type="number" step="any" name="mass" id="mass" v-model="car.mass" min="0">
 
       <label for="radius">Radius<label>
-      <input type="number" step="any" name="radius" id="radius" v-model="planet.radius" min="0">
+      <input type="number" step="any" name="radius" id="radius" v-model="car.radius" min="0">
 
       <label for="semiMajorAxis">Semi-Major Axis<label>
-      <input type="number" step="any" name="semiMajorAxis" id="semiMajorAxis" v-model="planet.semiMajorAxis" min="0">
+      <input type="number" step="any" name="semiMajorAxis" id="semiMajorAxis" v-model="car.semiMajorAxis" min="0">
 
       <label for="eccentricity">Eccentricity<label>
-      <input type="number" step="any" name="eccentricity" id="eccentricity" v-model="planet.eccentricity" min="0" max="1">
+      <input type="number" step="any" name="eccentricity" id="eccentricity" v-model="car.eccentricity" min="0" max="1">
 
       <label for="orbitalPeriod">Orbital Period<label>
-      <input type="number" step="any" name="orbitalPeriod" id="orbitalPeriod" v-model="planet.orbitalPeriod" min="0">
+      <input type="number" step="any" name="orbitalPeriod" id="orbitalPeriod" v-model="car.orbitalPeriod" min="0">
 
       <label for="pictureUrl">Picture Url<label>
-      <input type="url" name="pictureUrl" id="pictureUrl" v-model="planet.pictureUrl">
+      <input type="url" name="pictureUrl" id="pictureUrl" v-model="car.pictureUrl">
 
       <input type="submit" value="Update Planet">
     </form>
@@ -37,33 +37,33 @@
 
 </template>
 <script>
-Vue.component("planet-update", {
-  template: "#planet-update",
+Vue.component("car-update", {
+  template: "#car-update",
   data: () => ({
-    planet: null,
+    car: null,
     planetName: null,
     pictureUrl: null,
     errors: []
   }),
   created() {
-    this.planetSystemName = this.$javalin.pathParams["planet-system-id"];
-    const planetId = this.$javalin.pathParams["planet-id"];
+    this.planetSystemName = this.$javalin.pathParams["car-system-id"];
+    const planetId = this.$javalin.pathParams["car-id"];
     if (planetId != null) {
-      fetch(`/api/planet-system/${this.planetSystemName}/planets/${planetId}`)
+      fetch(`/api/car-system/${this.planetSystemName}/cars/${planetId}`)
           .then(res => res.json())
-          .then(res => this.planet = res)
-          .then(res => this.planetName = this.planet.name)
-          .catch(() => alert("Error while fetching planet"));
+          .then(res => this.car = res)
+          .then(res => this.planetName = this.car.name)
+          .catch(() => alert("Error while fetching car"));
     }
   },
   methods: {
     checkForm: function (e) {
       const urlRegex = "/^(?:(?:(?:https?|ftp):)?\\/\\/)(?:\\S+(?::\\S*)?@)?(?:(?!(?:10|127)(?:\\.\\d{1,3}){3})(?!(?:169\\.254|192\\.168)(?:\\.\\d{1,3}){2})(?!172\\.(?:1[6-9]|2\\d|3[0-1])(?:\\.\\d{1,3}){2})(?:[1-9]\\d?|1\\d\\d|2[01]\\d|22[0-3])(?:\\.(?:1?\\d{1,2}|2[0-4]\\d|25[0-5])){2}(?:\\.(?:[1-9]\\d?|1\\d\\d|2[0-4]\\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\\.(?:[a-z\u00a1-\uffff]{2,})))(?::\\d{2,5})?(?:[/?#]\\S*)?$/i";
-      if (this.planet.name && this.planet.mass && this.planet.radius) return true;
+      if (this.car.name && this.car.mass && this.car.radius) return true;
       this.errors = [];
-      if (!this.planet.name) this.errors.push("Name required");
-      if (!this.planet.mass) this.errors.push("Mass required");
-      if (!this.planet.radius) this.errors.push("Radius required");
+      if (!this.car.name) this.errors.push("Name required");
+      if (!this.car.mass) this.errors.push("Mass required");
+      if (!this.car.radius) this.errors.push("Radius required");
       e.preventDefault();
     }
   }

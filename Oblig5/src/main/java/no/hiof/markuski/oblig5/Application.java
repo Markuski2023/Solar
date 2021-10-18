@@ -4,10 +4,10 @@ import io.javalin.Javalin;
 import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import io.javalin.plugin.rendering.vue.VueComponent;
-import no.hiof.markuski.oblig5.controller.PlanetController;
-import no.hiof.markuski.oblig5.controller.PlanetSystemController;
+
+import no.hiof.markuski.oblig5.controller.CategoryController;
+import no.hiof.markuski.oblig5.controller.ItemController;
 import no.hiof.markuski.oblig5.repository.UniverseJSONRepository;
-import no.hiof.markuski.oblig5.repository.UniverseCSVRepository;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -25,34 +25,34 @@ public class Application {
             }
         });
 
-        app.before("/", ctx -> ctx.redirect("/planet-system"));
-        app.before("/api/planet-system/:planet-system-id/planets/:planet-id/delete", ctx -> ctx.redirect("/planet-system"));
+        app.before("/", ctx -> ctx.redirect("/category"));
+        app.before("/api/planet-system/:planet-system-id/planets/:planet-id/delete", ctx -> ctx.redirect("/category"));
 
-        app.get("/planet-system", new VueComponent("planet-system-overview"));
-        app.get("/planet-system/:planet-system-id", new VueComponent("planet-system-detail"));
-        app.get("/planet-system/:planet-system-id/planets/create", new VueComponent("planet-create"));
-        app.get("/planet-system/:planet-system-id/planets/:planet-id", new VueComponent("planet-detail"));
-        app.get("/planet-system/:planet-system-id/planets/:planet-id/update", new VueComponent("planet-update"));
+        app.get("/category", new VueComponent("planet-system-overview"));
+        app.get("/category/:category-id", new VueComponent("planet-system-detail"));
+        app.get("/category/:category-id/items/create", new VueComponent("planet-create"));
+        app.get("/category/:category-id/items/:item-id", new VueComponent("planet-detail"));
+        app.get("/category/:category-id/items/:item-id/update", new VueComponent("planet-update"));
 
-        UniverseJSONRepository universeJSONRepository = new UniverseJSONRepository("planets_4000.json");
-        PlanetSystemController planetSystemController = new PlanetSystemController(universeJSONRepository);
-        PlanetController planetController = new PlanetController(universeJSONRepository);
+        UniverseJSONRepository universeJSONRepository = new UniverseJSONRepository("items_4000.json");
+        CategoryController categoryController = new CategoryController(universeJSONRepository);
+        ItemController itemController = new ItemController(universeJSONRepository);
 
 
-        app.get("api/planet-system", new Handler() {
+        app.get("api/category", new Handler() {
             @Override
             public void handle(@NotNull Context ctx) throws Exception {
-                planetSystemController.getAllPlanetSystems(ctx);
+                categoryController.getAllCategories(ctx);
             }
 
         });
-        app.get("/api/planet-system", planetSystemController::getAllPlanetSystems);
-        app.get("/api/planet-system/:planet-system-id", planetSystemController::getPlanetSystem);
-        app.get("/api/planet-system/:planet-system-id/planets", planetController::getAllPlanets);
-        app.post("/api/planet-system/:planet-system-id/planets/create", planetController::createPlanet);
-        app.get("/api/planet-system/:planet-system-id/planets/:planet-id", planetController::getPlanet);
-        app.get("/api/planet-system/:planet-system-id/planets/:planet-id/delete", planetController::deletePlanet);
-        app.post("/api/planet-system/:planet-system-id/planets/:planet-id/update", planetController::updatePlanet);
+        app.get("/api/categories", categoryController::getAllCategories);
+        app.get("/api/planet-system/:planet-system-id", categoryController::getCategory);
+        app.get("/api/planet-system/:planet-system-id/planets", itemController::getAllItems);
+        app.post("/api/planet-system/:planet-system-id/planets/create", itemController::createItem);
+        app.get("/api/planet-system/:planet-system-id/planets/:planet-id", itemController::getItem);
+        app.get("/api/planet-system/:planet-system-id/planets/:planet-id/delete", itemController::deleteItem);
+        app.post("/api/planet-system/:planet-system-id/planets/:planet-id/update", itemController::updateItem);
     }
 }
 

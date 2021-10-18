@@ -1,16 +1,18 @@
 package no.hiof.markuski.oblig5.repository;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import no.hiof.markuski.oblig5.model.CelestialBody;
-import no.hiof.markuski.oblig5.model.Planet;
-import no.hiof.markuski.oblig5.model.PlanetSystem;
+import no.hiof.markuski.oblig5.model.Car;
+import no.hiof.markuski.oblig5.model.Category;
+import no.hiof.markuski.oblig5.model.Item;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class UniverseJSONRepository implements UniverseRepository, Runnable {
-    private HashMap<String, PlanetSystem> planetSystemHashMap = new HashMap<>();
+    private HashMap<String, Category> categoryHashMap = new HashMap<>();
     private String filename;
 
     public UniverseJSONRepository(String filename) throws IOException {
@@ -18,100 +20,91 @@ public class UniverseJSONRepository implements UniverseRepository, Runnable {
         readFromJSON(filename);
     }
 
-    // returnerer alle planetsystemene i gitt JSON fil
-    public ArrayList<PlanetSystem> readFromJSON(String filename) throws IOException {
+    public ArrayList<Category> readFromJSON(String filename) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
 
-        ArrayList<PlanetSystem> planetSystemsReturnList = new ArrayList<>();
+        ArrayList<Category> categoryReturnList = new ArrayList<>();
 
-        PlanetSystem[] planetSystems = mapper.readValue(new File(filename), PlanetSystem[].class);
-        planetSystemsReturnList.addAll(Arrays.asList(planetSystems));
+        Category[] categories = mapper.readValue(new File(filename), Category[].class);
+        categoryReturnList.addAll(Arrays.asList(categories));
 
-        for (PlanetSystem aSystem : planetSystems) {
-            planetSystemHashMap.put(aSystem.getName(), aSystem);
+        for (Category aCategory : categories) {
+            categoryHashMap.put(aCategory.getName(), aCategory);
         }
-        return planetSystemsReturnList;
+        return categoryReturnList;
     }
 
-    // skriver en HashMap til JSON filformat
-    public void writeHashMapToJson(HashMap<String, PlanetSystem> planetSystems, String filename) throws IOException {
+    public void writeHashMapToJSON(HashMap<String, Category> categories, String filename) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
-
-        objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), planetSystems.values());
+        objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(filename), categories.values());
     }
 
     @Override
-    public ArrayList<PlanetSystem> getAllPlanetSystems() {
-       return new ArrayList<>(planetSystemHashMap.values());
+    public ArrayList<Category> getAllCategories() {
+        return new ArrayList<>(categoryHashMap.values());
     }
 
-    // henter et gitt planetsystem
     @Override
-    public PlanetSystem getPlanetSystem(String planetSystemName) throws IOException {
-        return planetSystemHashMap.get(planetSystemName);
-
-        // hente fra hashmap direkte
+    public Category getCategory(String categoryName) throws IOException {
+        return categoryHashMap.get(categoryName);
     }
 
-    // henter alle planeter fra et gitt Planetsystem
     @Override
-    public ArrayList<Planet> getAllPlanets(String planetSystemName) throws IOException {
-        PlanetSystem planetSystem = getPlanetSystem(planetSystemName);
+    public ArrayList<Item> getAllItems(String categoryName) throws IOException {
+        Category category = getCategory(categoryName);
 
-        if (planetSystem != null) {
-            return planetSystem.getPlanets();
+        if (category != null) {
+            return category.getItems();
         }
         return null;
     }
 
-    // henter en spesifisert planet fra et spesifisert planetsystem
     @Override
-    public Planet getPlanet(String planetSystemName, String planetName) throws IOException {
-        PlanetSystem planetSystem = getPlanetSystem(planetSystemName);
+    public Item getItem(String categoryName, String itemName) throws IOException {
+        Category category = getCategory(categoryName);
 
-        if (planetSystem != null)
-            return planetSystem.getPlanet(planetName);
-
+        if (category != null)
+            return category.getItem(itemName);
         return null;
-        }
+    }
 
     // sletter en gitt planet ut ifra planetsystem navn og planet navn
     @Override
-    public void deletePlanet(String planetSystemName, String planetName) throws IOException {
-        HashMap<String, PlanetSystem> aHashMap = planetSystemHashMap;
-        for (PlanetSystem aSystem : aHashMap.values()) {
-            if (aSystem.getName().equalsIgnoreCase(planetSystemName)) {
-                aSystem.deletePlanet(planetName);
+    public void deleteItem(String categoryName, String itemName) throws IOException {
+        HashMap<String, Category> aHashMap = categoryHashMap;
+        for (Category aCategory : aHashMap.values()) {
+            if (aCategory.getName().equalsIgnoreCase(categoryName)) {
+                aCategory.deleteItem(itemName);
             }
-            writeHashMapToJson(aHashMap, "planets_100.json");
+            writeHashMapToJSON(aHashMap, "planets_100.json");
         }
     }
 
     // legger til en ny planet i et gitt planetsystem
     @Override
-    public void createPlanet(String planetSystemName, String name, double radius, double mass, double semiMajorAxis, double eccentricity, double orbitalPeriod, CelestialBody celestialBody, String pictureUrl) throws IOException {
+    public void createItem(String categoryName, String name, String description, double price, String pictureUrl) throws IOException {
 
-        HashMap<String, PlanetSystem> aHashMap = planetSystemHashMap;
-        for (PlanetSystem aSystem : aHashMap.values()) {
-            if (aSystem.getName().equalsIgnoreCase(planetSystemName)) {
-                aSystem.addPlanet(new Planet(name, radius, mass, semiMajorAxis, eccentricity, orbitalPeriod, aSystem.getCenterStar(), pictureUrl));
-                aHashMap.put(aSystem.getName(), aSystem);
+        HashMap<String, Category> aHashMap = categoryHashMap;
+        for (Category aCategory : aHashMap.values()) {
+            if (aCategory.getName().equalsIgnoreCase(categoryName)) {
+                aCategory.addItem(new Item(name, description, price, pictureUrl));
+                aHashMap.put(aCategory.getName(), aCategory);
             }
-            writeHashMapToJson(aHashMap, "planets_100.json");
+            writeHashMapToJSON(aHashMap, "planets_100.json");
         }
     }
 
 
     // oppdaterer informasjon om gitt planet
     @Override
-    public void updatePlanet(String planetSystemName, String oldPlanetName, Planet newPlanet) throws IOException {
-        ArrayList<Planet> planets = planetSystemHashMap.get(planetSystemName).getPlanets();
-        for (int i = 0; i < planets.size(); i++) {
-            if (planets.get(i).getName().equals(oldPlanetName)) {
-                planets.set(i, newPlanet);
+    public void updateItem(String categoryName, String oldItemName, Item newItem) throws IOException {
+        ArrayList<Item> items = categoryHashMap.get(categoryName).getItems();
+        for (int i = 0; i < items.size(); i++) {
+            if (items.get(i).getName().equals(oldItemName)) {
+                items.set(i, newItem);
             }
         }
-            writeHashMapToJson(planetSystemHashMap, "planets_100.json");
+        writeHashMapToJSON(categoryHashMap, "planets_100.json");
     }
 
     @Override

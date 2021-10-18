@@ -1,9 +1,9 @@
-<template id="planet-system-overview">
+<template id="car-system-overview">
    <div>
-        <ul class="planet-system-overview-list">
+        <ul class="car-system-overview-list">
             <li v-for="planetSystem in planetSystems">
-                <a :href="`/planet-system/${planetSystem.name.trim()}`" class="link-to-planet-system-details">
-                    <div class="single-planet-system-container" >
+                <a :href="`/car-system/${planetSystem.name.trim()}`" class="link-to-car-system-details">
+                    <div class="single-car-system-container" >
                         <h1>{{planetSystem.name}}</h1>
 
                         <img v-if="planetSystem.pictureUrl" class="cover-image-frontpage" v-bind:src="planetSystem.pictureUrl">
@@ -15,13 +15,13 @@
    </div>
 </template>
 <script>
-    Vue.component("planet-system-overview", {
-        template: "#planet-system-overview",
+    Vue.component("car-system-overview", {
+        template: "#car-system-overview",
         data: () => ({
             planetSystems: [],
         }),
         created() {
-            fetch("/api/planet-system")
+            fetch("/api/car-system")
                 .then(res => res.json())
                 .then(res => {
                    this.planetSystems = res;
@@ -35,26 +35,26 @@
         list-style-type: none;
     }
 
-    .planet-system-overview-list{
+    .car-system-overview-list{
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
     }
 
-    .planet-system-overview-list li{
+    .car-system-overview-list li{
         padding: 10px;
         border: 1px solid white;
         border-radius: 15px;
     }
 
-    .link-to-planet-system-details{
+    .link-to-car-system-details{
         width: 400px;
         height:100px;
         text-decoration: none;
         color: white;
     }
 
-    div.single-planet-system-container{
+    div.single-car-system-container{
         overflow: hidden;
         width: 500px;
         background-color: #000000;
@@ -63,7 +63,7 @@
         text-align: center;
     }
 
-    div.single-planet-system-container:hover{
+    div.single-car-system-container:hover{
         opacity: 1.0;
         overflow: hidden;
         -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.25);

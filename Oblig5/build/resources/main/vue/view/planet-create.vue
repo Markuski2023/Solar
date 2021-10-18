@@ -1,7 +1,7 @@
-<template id="planet-create" @planet-submitted="createPlanet">
+<template id="car-create" @car-submitted="createPlanet">
     <div class="form-style">
-        <h2>Create new planet in the {{planetSystemName}}</h2>
-        <form class="create" @submit="checkForm" :action=`/api/planet-system/${planetSystemName}/planets/create` method="post">
+        <h2>Create new car in the {{planetSystemName}}</h2>
+        <form class="create" @submit="checkForm" :action=`/api/car-system/${planetSystemName}/cars/create` method="post">
           <div v-if="errors.length">
               <b>Please correct the following error(s):</b>
               <ul>
@@ -36,8 +36,8 @@
 
 </template>
 <script>
-    Vue.component("planet-create", {
-        template: "#planet-create",
+    Vue.component("car-create", {
+        template: "#car-create",
         data: () => ({
             name: null,
             mass: null,
@@ -50,7 +50,7 @@
             errors: []
         }),
         created() {
-            this.planetSystemName = this.$javalin.pathParams["planet-system-id"];
+            this.planetSystemName = this.$javalin.pathParams["car-system-id"];
         },
         methods:{
             checkForm:function(e) {
